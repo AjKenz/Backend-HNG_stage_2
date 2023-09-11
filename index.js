@@ -6,7 +6,7 @@ const app = express()
 
 app.use(express.json())
 
-db.sequelize.sync()
+db.sequelize.sync({force: true})
 .then(() => {
     console.log('database connected')
 })

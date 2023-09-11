@@ -3,21 +3,25 @@ const Person = db.person
 
 
 const createPerson = async (req, res) => {
-    try{
-        const {name} = req.body
+    try {
+        const { name } = req.body
 
-        if(!req.body.name){
-            return res.json({message: 'a name must be provided'})
+        if (!req?.body?.name) {
+            return res.json({ message: 'a name must be provided' })
+        }
+
+        if (typeof name !== 'string') {
+            return res.status(400).json({ error: 'Name must be a string' });
         }
 
         const person = await Person.create(req.body)
-        if(person){
-           return res.status(200).json({
+        if (person) {
+            return res.status(200).json({
                 person
-            })    
+            })
         }
     }
-    catch(error){
+    catch (error) {
         console.log('an error occured: ' + error.message)
         res.status(500).send({
             message: 'An error occured while creating Person ' || error.message
@@ -25,11 +29,11 @@ const createPerson = async (req, res) => {
     }
 }
 
-const fecthPerson = async (req, res ) => {
+const fecthPerson = async (req, res) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
 
-        if(!id || isNaN(id)){
+        if (!id || isNaN(id)) {
             return res.status(400).json({
                 message: 'invalid or mission ID'
             })
@@ -37,48 +41,57 @@ const fecthPerson = async (req, res ) => {
 
         const person = await Person.findByPk(id);
 
-        if (person){
+        if (person) {
             return res.status(200).json({
                 person
             })
         }
         else {
-            return res.json({ message: 'person not found'})
+            return res.json({ message: 'person not found' })
         }
     }
-    catch(error){
-        console.log('an error occured: '+ error)
+    catch (error) {
+        console.log('an error occured: ' + error)
         res.status(500).json({
-            message: error.message || 'an error occured while fetching person' 
+            message: error.message || 'an error occured while fetching person'
         })
     }
 }
 
 const updatePerson = async (req, res) => {
     try {
-        const {id} = req.params
-        const {name} = req.body
+        const { id } = req.params
+        const { name } = req.body
 
-        if(!id || isNaN(id)){
+        if (!id || isNaN(id)) {
             return res.status(400).json({
                 message: 'invalid or mission ID'
             })
         }
 
+        if (!req?.body?.name) {
+            return res.json({ message: 'a name must be provided' })
+        }
+
+        if (typeof name !== 'string') {
+            return res.status(400).json({ error: 'Name must be a string' });
+        }
+
+
         const person = await Person.findByPk(id)
 
-        if(person){
-            await Person.update({name},{ where: {id} })
+        if (person) {
+            await Person.update({ name }, { where: { id } })
             const updatedUser = await Person.findByPk(id)
             return res.status(200).json({
                 person: updatedUser
             })
         }
         else {
-            return res.json({ message: 'person not found'})
+            return res.json({ message: 'person not found' })
         }
     }
-    catch(error){
+    catch (error) {
         console.log('an error occured: ' + error)
         return res.status(500).json({
             message: error.message || 'an error occured while updating profile'
@@ -88,31 +101,31 @@ const updatePerson = async (req, res) => {
 
 const deletePerson = async (req, res) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
 
-        if(!id || isNaN(id)){
+        if (!id || isNaN(id)) {
             return res.status(400).json({
                 message: 'invalid or mission ID'
             })
         }
-        
+
         const person = await Person.findByPk(id)
 
-        if(person){
-            const deleteUser = await Person.destroy({where: {id}})
-            if(deleteUser === 1){
+        if (person) {
+            const deleteUser = await Person.destroy({ where: { id } })
+            if (deleteUser === 1) {
                 res.status(200).json({
                     message: 'person deleted successfully',
-                })    
+                })
             }
         }
-        else { 
+        else {
             res.json({
                 message: 'person does not exist'
             })
         }
     }
-    catch(error){
+    catch (error) {
         console.log('error occured: ' + error)
         res.status(500).json({
             message: error.message || 'Internal Server error'
@@ -121,7 +134,7 @@ const deletePerson = async (req, res) => {
 }
 
 
-module.exports= {
+module.exports = {
     createPerson,
     fecthPerson,
     updatePerson,
