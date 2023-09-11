@@ -6,7 +6,7 @@ const app = express()
 
 app.use(express.json())
 
-db.sequelize.sync()
+db.sequelize.sync({force: true})
 .then(() => {
     console.log('database connected')
 })
@@ -20,6 +20,9 @@ app.get('/', (req, res) => {
         message: 'welcome to backend'
     })
 })
+
+require('./route/user.route')(app)
+
 
 const port =process.env.PORT || 3000
 
