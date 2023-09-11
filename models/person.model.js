@@ -1,11 +1,11 @@
 const {sequelize, Sequelize} = require('.')
 
 module.exports = (sequelize, Sequelize) => {
-    const User = sequelize.define('user', {
+    const Person = sequelize.define('person', {
         name: {
             type: Sequelize.STRING,
             allowNull: false
         }
     })
-    return User
+    return Person
 }

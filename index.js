@@ -6,11 +6,11 @@ const app = express()
 
 app.use(express.json())
 
-db.sequelize.sync({force: true})
+db.sequelize.sync()
 .then(() => {
     console.log('database connected')
 })
-.catch(() => {
+.catch((error) => {
     console.log('an error occured: ' + error.message)
 })
 
@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
     })
 })
 
-require('./route/user.route')(app)
+require('./route/person.route')(app)
 
 
 const port =process.env.PORT || 3000

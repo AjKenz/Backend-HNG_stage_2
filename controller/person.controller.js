@@ -1,8 +1,8 @@
 const db = require('../models')
-const User = db.user
+const Person = db.person
 
 
-const createUser = async (req, res) => {
+const createPerson = async (req, res) => {
     try{
         const {name} = req.body
 
@@ -10,10 +10,10 @@ const createUser = async (req, res) => {
             return res.json({message: 'a name must be provided'})
         }
 
-        const user = await User.create(req.body)
-        if(user){
+        const person = await Person.create(req.body)
+        if(person){
            return res.status(200).json({
-                user
+                person
             })    
         }
     }
@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
     }
 }
 
-const fecthUserByPK = async (req, res ) => {
+const fecthPerson = async (req, res ) => {
     try {
         const {id} = req.params
 
@@ -35,26 +35,26 @@ const fecthUserByPK = async (req, res ) => {
             })
         }
 
-        const user = await User.findByPk(id);
+        const person = await Person.findByPk(id);
 
-        if (user){
+        if (person){
             return res.status(200).json({
-                user
+                person
             })
         }
         else {
-            return res.json({ message: 'user not found'})
+            return res.json({ message: 'person not found'})
         }
     }
     catch(error){
         console.log('an error occured: '+ error)
         res.status(500).json({
-            message: error.message || 'an error occured while fetching user' 
+            message: error.message || 'an error occured while fetching person' 
         })
     }
 }
 
-const updateUserByPk = async (req, res) => {
+const updatePerson = async (req, res) => {
     try {
         const {id} = req.params
         const {name} = req.body
@@ -65,17 +65,17 @@ const updateUserByPk = async (req, res) => {
             })
         }
 
-        const user = await User.findByPk(id)
+        const person = await Person.findByPk(id)
 
-        if(user){
-            await User.update({name},{ where: {id} })
-            const updatedUser = await User.findByPk(id)
+        if(person){
+            await Person.update({name},{ where: {id} })
+            const updatedUser = await Person.findByPk(id)
             return res.status(200).json({
-                user: updatedUser
+                person: updatedUser
             })
         }
         else {
-            return res.json({ message: 'user not found'})
+            return res.json({ message: 'person not found'})
         }
     }
     catch(error){
@@ -86,7 +86,7 @@ const updateUserByPk = async (req, res) => {
     }
 }
 
-const deletUserByPk = async (req, res) => {
+const deletePerson = async (req, res) => {
     try {
         const {id} = req.params
 
@@ -96,19 +96,19 @@ const deletUserByPk = async (req, res) => {
             })
         }
         
-        const user = await User.findByPk(id)
+        const person = await Person.findByPk(id)
 
-        if(user){
-            const deleteUser = await User.destroy({where: {id}})
+        if(person){
+            const deleteUser = await Person.destroy({where: {id}})
             if(deleteUser === 1){
                 res.status(200).json({
-                    message: 'user deleted successfully',
+                    message: 'person deleted successfully',
                 })    
             }
         }
         else { 
             res.json({
-                message: 'user does not exist'
+                message: 'person does not exist'
             })
         }
     }
@@ -122,8 +122,8 @@ const deletUserByPk = async (req, res) => {
 
 
 module.exports= {
-    createUser,
-    fecthUserByPK,
-    updateUserByPk,
-    deletUserByPk
+    createPerson,
+    fecthPerson,
+    updatePerson,
+    deletePerson
 }

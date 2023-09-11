@@ -1,17 +1,56 @@
-const dbConfig = require('../config/db.config')
-const Sequelize = require('sequelize')
+const Sequelize = require('sequelize');
+const { URL } = require('url'); 
+const db = {};
+require('dotenv').config();
 
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    operatorAliases: false,
-})
+let sequelizeOptions = {
+  dialect: 'postgres',
+  protocol: 'postgres',
+  logging: true,
+};
 
-const db = {}
+if (process.env.DATABASE_URL) {
+  const url = new URL(process.env.DATABASE_URL);
 
-db.Sequelize = Sequelize
-db.sequelize = sequelize
+  sequelizeOptions = {
+    ...sequelizeOptions,
+    dialect: url.protocol.replace(':', ''),
+    host: url.hostname,
+    port: url.port,
+    username: url.username,
+    password: url.password,
+    database: url.pathname.replace('/', ''),
+    ssl: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  };
+} else {
+  sequelizeOptions = {
+    ...sequelizeOptions,
+    dialect: process.env.DIALECT,
+    host: process.env.HOST,
+    port: process.env.PORT || 5432,
+    username: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DB,
+    ssl: false,
+    dialectOptions: {
+      ssl: {
+        require: false,
+      },
+    },
+  };
+}
 
-db.user = require('./user.model')(sequelize, Sequelize)
+const sequelize = new Sequelize(sequelizeOptions);
 
-module.exports = db
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+db.person = require('./person.model')(sequelize, Sequelize);
+
+module.exports = db;
