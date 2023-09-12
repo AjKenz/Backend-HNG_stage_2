@@ -77,7 +77,7 @@ This documentation provides details on the API's endpoints, request and response
     }
     ```
 
-## Sample Usage with Postman
+## Sample Usage
 
 Here are sample requests and expected responses using Postman for each endpoint:
 
@@ -85,7 +85,7 @@ Here are sample requests and expected responses using Postman for each endpoint:
 
 1. Open Postman.
 2. Set the HTTP method to `POST`.
-3. Enter the request URL: `http://localhost:3000/api`.
+3. Enter the request URL: `https://stage-2-h6ev.onrender.com/api`.
 4. Set the request body to JSON format:
    ```json
    {
@@ -109,7 +109,7 @@ Expected response:
 
 1. Open Postman.
 2. Set the HTTP method to GET.
-3. Enter the request URL, e.g., http://localhost:3000/api/1 (replace 1 with the desired person's ID).
+3. Enter the request URL: 'https://stage-2-h6ev.onrender.com/api/1' (replace 1 with the desired person's ID).
 4. Click the "Send" button.
 Expected response:
 ```json
@@ -126,7 +126,7 @@ Expected response:
 ### Updating a Person
 1. Open Postman.
 2. Set the HTTP method to PUT.
-3. Enter the request URL, e.g., http://localhost:3000/api/1 (replace 1 with the desired person's ID).
+3. Enter the request URL: 'https://stage-2-h6ev.onrender.com/api/1' (replace 1 with the desired person's ID).
 4. Set the request body to JSON format:
 ```json
 {
@@ -149,7 +149,7 @@ Expected response:
 ### Deleting a Person
 1. Open Postman.
 2. Set the HTTP method to DELETE.
-3. Enter the request URL, e.g., http://localhost:3000/api/1 (replace 1 with the desired person's ID).
+3. Enter the request URL: 'https://stage-2-h6ev.onrender.com/api/1' (replace 1 with the desired person's ID).
 4. Click the "Send" button.
 5. Expected response:
 ```json
@@ -196,6 +196,6 @@ DB=your_database_name
 ```bash
 npm start
 ```
-The API will be accessible at http://localhost:3000 by default.
+The API will be accessible at http://localhost:3000/api by default.
 
-Testing with Postman: You can use Postman to test the API locally as described in the Sample Usage with Postman section.
+Testing with Postman: You can use Postman to test the API locally as described in the Sample Usage section.
