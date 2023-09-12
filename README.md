@@ -11,8 +11,6 @@ This is the README file for your Express Node.js API. It provides information on
 - [Usage](#usage)
 - [Known Limitations and Assumptions](#known-limitations-and-assumptions)
 - [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Prerequisites
 
