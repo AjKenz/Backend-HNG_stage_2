@@ -19,6 +19,9 @@ Before you begin, ensure you have met the following requirements:
 - Node.js and npm installed on your machine.
 - PostgreSQL database (or a compatible database) available.
 
+## UML DIAGRAM
+
+- [UML Diagram](https://drive.google.com/file/d/1m70hIiwFT4pBQO4hq20FXvbpz06JHT8N/view?usp=sharing)
 
 ## Installation
 
