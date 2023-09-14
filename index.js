@@ -6,7 +6,7 @@ const app = express()
 
 app.use(express.json())
 
-db.sequelize.sync({force: true})
+db.sequelize.sync()
 .then(() => {
     console.log('database connected')
 })
@@ -17,7 +17,7 @@ db.sequelize.sync({force: true})
 
 app.get('/', (req, res) => {
     res.json({
-        message: 'welcome to backend'
+        message: 'welcome to HNG backend Stage 2'
     })
 })
 
